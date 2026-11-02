@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit task · My To-Do List</title>
+  <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="edit-shell">
+    <a class="back-link" href="{% url 'home' %}">← Back to my list</a>
+    <section class="panel edit-panel">
+      <p class="eyebrow">MAKE IT JUST RIGHT</p>
+      <h1>Edit task<span class="title-period">.</span></h1>
+      <p class="hero-subtitle">A small adjustment can make all the difference.</p>
+      <form method="post" class="task-form">
+        {% csrf_token %}
+        <label for="{{ form.title.id_for_label }}">Task title</label>
+        {{ form.title }}
+        {% if form.title.errors %}<p class="field-error">{{ form.title.errors|striptags }}</p>{% endif %}
+        <label for="{{ form.description.id_for_label }}">Description <span class="optional">(optional)</span></label>
+        {{ form.description }}
+        {% if form.description.errors %}<p class="field-error">{{ form.description.errors|striptags }}</p>{% endif %}
+        <div class="edit-actions"><button class="primary-button" type="submit">Save changes <span class="button-arrow">↗</span></button><a class="cancel-link" href="{% url 'home' %}">Cancel</a></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
